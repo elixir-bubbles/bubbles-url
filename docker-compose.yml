@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  phoenix: &defaults
+    image: mvrkljan/phoenix
+    volumes_from:
+      - data
+    links:
+      - postgres
+    environment:
+      URL_DB_USER: bubbles
+
+  mix:
+    <<: *defaults
+    entrypoint: ["mix"]
+
+  iex:
+    <<: *defaults
+    command: ["iex", "-S", "mix"]
+
+  postgres:
+    image: postgres:10
+    environment:
+      POSTGRES_USER: bubbles
+      POSTGRES_PASSWORD: bubbles
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    volumes_from:
+      - data
+
+  data:
+    image: busybox:latest
+    volumes:
+      - .:/code
+      - /var/lib/postgresql/data
