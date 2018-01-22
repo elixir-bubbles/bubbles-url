@@ -50,7 +50,6 @@ defmodule Bubbles.UrlTest do
     assert urls == []
   end
 
-
   defp create_article() do
     new_url =
       %Url{
