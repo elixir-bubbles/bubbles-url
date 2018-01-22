@@ -1,4 +1,4 @@
-defmodule Url.Generator do
+defmodule Bubbles.Url.Generator do
   def generate(uri, repo, url_schema, strategy) do
     if url = repo.get_by(url_schema, uri: uri) do
       uri = strategy.generate_unique_uri(uri, repo, url_schema)

@@ -1,7 +1,7 @@
-defmodule Url.Schema do
+defmodule Bubbles.Url.Schema do
   alias Ecto.Multi
 
-  @default_strategy Url.GeneratorStrategy
+  @default_strategy Bubbles.Url.GeneratorStrategy
 
   def get_by_uri!(uri, repo, url_schema_module, schema_module) do
     # TODO Rewrite into a single query using ecto query?
@@ -39,7 +39,7 @@ defmodule Url.Schema do
         strategy \\ @default_strategy
       ) do
     Multi.new()
-    |> Multi.run(:url, fn _ -> Url.Generator.generate(uri, repo, url_schema, strategy) end)
+    |> Multi.run(:url, fn _ -> Bubbles.Url.Generator.generate(uri, repo, url_schema, strategy) end)
     |> Multi.run(:schema, fn %{url: url} -> schema_create_fn.(url) end)
   end
 
@@ -65,7 +65,7 @@ defmodule Url.Schema do
       ) do
     Multi.new()
     |> Multi.run(:url, fn _ ->
-      Url.Generator.generate(uri, repo, url_schema, strategy, schema.url_id)
+      Bubbles.Url.Generator.generate(uri, repo, url_schema, strategy, schema.url_id)
     end)
     |> Multi.run(:schema, fn %{url: url} -> schema_update_fn.(url) end)
   end

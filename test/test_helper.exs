@@ -1,4 +1,4 @@
-defmodule Url.TestCase do
+defmodule Bubbles.Url.TestCase do
   use ExUnit.CaseTemplate
 
   using opts do
@@ -9,11 +9,11 @@ defmodule Url.TestCase do
   end
 
   setup do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Url.Test.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bubbles.Url.Test.Repo)
   end
 end
 
-Url.Test.Repo.start_link()
-Ecto.Adapters.SQL.Sandbox.mode(Url.Test.Repo, :manual)
+Bubbles.Url.Test.Repo.start_link()
+Ecto.Adapters.SQL.Sandbox.mode(Bubbles.Url.Test.Repo, :manual)
 
 ExUnit.start()

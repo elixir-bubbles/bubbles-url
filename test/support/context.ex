@@ -1,6 +1,9 @@
-defmodule Url.Test.Context do
+defmodule Bubbles.Url.Test.Context do
+  alias Bubbles.Url.Schema
+  alias Bubbles.Url.Test.{Article, Url, Repo}
+
   def get_article_by_uri!(uri) do
-    Url.Schema.get_by_uri!(uri, Url.Test.Repo, Url.Test.Url, Url.Test.Article)
+    Schema.get_by_uri!(uri, Repo, Url, Article)
   end
 
   def create_article(%{uri: uri} = attrs) do
@@ -8,9 +11,9 @@ defmodule Url.Test.Context do
            create_article_with_url(uri, fn url ->
              attrs = Map.put(attrs, :url_id, url.id)
 
-             %Url.Test.Article{}
-             |> Url.Test.Article.changeset(attrs)
-             |> Url.Test.Repo.insert()
+             %Article{}
+             |> Article.changeset(attrs)
+             |> Repo.insert()
            end) do
       {:ok, Map.put(article, :url, url)}
     else
@@ -19,17 +22,17 @@ defmodule Url.Test.Context do
   end
 
   defp create_article_with_url(uri, schema_create_fn) do
-    Url.Schema.create_with_url(uri, Url.Test.Repo, Url.Test.Url, schema_create_fn)
+    Schema.create_with_url(uri, Repo, Url, schema_create_fn)
   end
 
-  def update_article(%Url.Test.Article{} = article, %{uri: uri} = attrs) do
+  def update_article(%Article{} = article, %{uri: uri} = attrs) do
     with {:ok, %{schema: article, url: url}} <-
            update_article_with_url(article, uri, fn url ->
              attrs = Map.put(attrs, :url_id, url.id)
 
              article
-             |> Url.Test.Article.changeset(attrs)
-             |> Url.Test.Repo.update()
+             |> Article.changeset(attrs)
+             |> Repo.update()
            end) do
       {:ok, Map.put(article, :url, url)}
     else
@@ -38,12 +41,12 @@ defmodule Url.Test.Context do
   end
 
   defp update_article_with_url(article, uri, schema_update_fn) do
-    Url.Schema.update_with_url(article, uri, Url.Test.Repo, Url.Test.Url, schema_update_fn)
+    Schema.update_with_url(article, uri, Repo, Url, schema_update_fn)
   end
 
-  def delete_article(%Url.Test.Article{} = article) do
-    Url.Schema.delete_with_url(article, Url.Test.Repo, Url.Test.Url, fn ->
-      Url.Test.Repo.delete(article)
+  def delete_article(%Article{} = article) do
+    Schema.delete_with_url(article, Repo, Url, fn ->
+      Repo.delete(article)
     end)
   end
 end

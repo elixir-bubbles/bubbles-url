@@ -1,10 +1,11 @@
-defmodule UrlTest do
-  use Url.TestCase
-  # doctest Url
+defmodule Bubbles.UrlTest do
+  use Bubbles.Url.TestCase
+
+  alias Bubbles.Url.Test.{Context, Article, Url, Repo}
 
   test "fetches article by url" do
     create_article()
-    article = Url.Test.Context.get_article_by_uri!("test-article-old-uri")
+    article = Context.get_article_by_uri!("test-article-old-uri")
 
     assert article.url_id != nil
     assert article.title == "Test Article"
@@ -12,7 +13,7 @@ defmodule UrlTest do
 
   test "creates article with url" do
     {:ok, article} =
-      Url.Test.Context.create_article(%{
+      Context.create_article(%{
         uri: "some-test-uri",
         title: "Article Title"
       })
@@ -26,7 +27,7 @@ defmodule UrlTest do
     article = create_article()
 
     {:ok, article} =
-      Url.Test.Context.update_article(article, %{
+      Context.update_article(article, %{
         title: "Updated Article Title",
         uri: "updated-test-uri"
       })
@@ -34,40 +35,39 @@ defmodule UrlTest do
     assert article.title == "Updated Article Title"
     assert article.url.uri == "updated-test-uri"
 
-    redirected_article = Url.Test.Context.get_article_by_uri!("test-article-old-uri")
+    redirected_article = Context.get_article_by_uri!("test-article-old-uri")
 
     assert article.id == redirected_article.id
   end
 
   test "deletes article and url" do
     article = create_article()
-    Url.Test.Context.delete_article(article)
+    Context.delete_article(article)
 
-    articles = Url.Test.Repo.all(Url.Test.Article)
-    urls = Url.Test.Repo.all(Url.Test.Url)
-
+    articles = Repo.all(Article)
+    urls = Repo.all(Url)
     assert articles == []
     assert urls == []
   end
 
+
   defp create_article() do
     new_url =
-      %Url.Test.Url{
+      %Url{
         uri: "test-article"
       }
-      |> Url.Test.Repo.insert!()
+      |> Repo.insert!()
 
-    old_url =
-      %Url.Test.Url{
-        uri: "test-article-old-uri",
-        redirects_to_url_id: new_url.id
-      }
-      |> Url.Test.Repo.insert!()
+    %Url{
+      uri: "test-article-old-uri",
+      redirects_to_url_id: new_url.id
+    }
+    |> Repo.insert!()
 
-    %Url.Test.Article{
+    %Article{
       title: "Test Article",
       url_id: new_url.id
     }
-    |> Url.Test.Repo.insert!()
+    |> Repo.insert!()
   end
 end

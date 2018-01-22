@@ -1,5 +1,5 @@
-defmodule Url.GeneratorStrategy do
-  @behaviour Url.GeneratorStrategyBehaviour
+defmodule Bubbles.Url.GeneratorStrategy do
+  @behaviour BubblesUrl.GeneratorStrategyBehaviour
 
   @repo Application.get_env(:url, :repo)
   @url Application.get_env(:url, :schema)

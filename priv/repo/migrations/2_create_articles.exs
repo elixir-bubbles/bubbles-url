@@ -1,4 +1,4 @@
-defmodule Url.Test.Repo.Migrations.CreateArticles do
+defmodule TestRepo.Migrations.CreateArticles do
   use Ecto.Migration
 
   def change do

@@ -1,15 +1,15 @@
-defmodule Url.Test.Article do
+defmodule Bubbles.Url.Test.Article do
   use Ecto.Schema
   import Ecto.Changeset
 
   schema "articles" do
     field(:title, :string)
-    belongs_to(:url, Url.Test.Url)
+    belongs_to(:url, Bubbles.Url.Test.Url)
     timestamps()
   end
 
   @doc false
-  def changeset(%Url.Test.Article{} = article, attrs) do
+  def changeset(%Bubbles.Url.Test.Article{} = article, attrs) do
     article
     |> cast(attrs, [:title, :url_id])
     |> assoc_constraint(:url)

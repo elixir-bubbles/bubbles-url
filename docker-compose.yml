@@ -8,7 +8,9 @@ services:
     links:
       - postgres
     environment:
-      URL_DB_USER: bubbles
+      DB_USERNAME: bubbles
+      DB_PASSWORD: bubbles
+      DB_HOSTNAME: postgres
 
   mix:
     <<: *defaults
