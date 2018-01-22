@@ -7,7 +7,7 @@ before_script:
   - export DB_USERNAME=postgres
   - export DB_PASSWORD=postgres
   - export DB_HOSTNAME=localhost
-  - MIX_ENV=test mix db.reset
+  - MIX_ENV=test mix ecto.reset
 script:
   - mix test
   - mix format --check-formatted
