@@ -4,7 +4,9 @@ otp_release:
 elixir:
   - 1.6.0
 before_script:
-  - export URL_DB_USER=postgres
+  - export DB_USERNAME=postgres
+  - export DB_PASSWORD=postgres
+  - export DB_HOSTNAME=localhost
   - MIX_ENV=test mix db.reset
 script:
   - mix test
