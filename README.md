@@ -1,20 +1,22 @@
-# Url
+# Bubbles Url
+
+[![Build Status](https://travis-ci.org/elixir-bubbles/bubbles-url.svg?branch=master)](https://travis-ci.org/elixir-bubbles/bubbles-url)
 
 **TODO: Add description**
 
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `url` to your list of dependencies in `mix.exs`:
+by adding `bubbles_url` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:url, "~> 0.1.0"}
+    {:bubbles_url, "~> 0.1.0"}
   ]
 end
 ```
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/url](https://hexdocs.pm/url).
+be found at [https://hexdocs.pm/bubbles_url](https://hexdocs.pm/bubbles_url).
