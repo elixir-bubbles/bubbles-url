@@ -1,8 +1,22 @@
 defmodule Bubbles.Url.Schema do
+  @moduledoc """
+  TBD
+  """
   alias Ecto.Multi
 
   @default_strategy Bubbles.Url.GeneratorStrategy
 
+  @doc """
+  Fetches a struct of `schema_module` type associated with the URL that has the
+  matching `uri` attribute.
+
+  For brevity, this function can be wrapped in a function with a shorter
+  signature, for example:
+
+      get_article_by_uri!(uri) do
+        Bubbles.Url.Schema.get_by_uri!(uri, Foo.Repo, Foo.Url, Foo.Article)
+      end
+  """
   def get_by_uri!(uri, repo, url_schema_module, schema_module) do
     # TODO Rewrite into a single query using ecto query?
     url =
@@ -87,9 +101,14 @@ defmodule Bubbles.Url.Schema do
     # TODO Refactor using Ecto query and a single multi delete query?
     redirected_to_by = repo.get_by(url_schema, redirects_to_url_id: url.id)
 
-    if redirected_to_by do
-      multi = delete_urls_multi(multi, repo, url_schema, redirected_to_by)
-    end
+    multi =
+      case redirected_to_by do
+        %url_schema{} ->
+          delete_urls_multi(multi, repo, url_schema, redirected_to_by)
+
+        nil ->
+          multi
+      end
 
     multi
     |> Multi.delete(String.to_atom("delete_url_#{url.id}"), url)

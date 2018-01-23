@@ -1,9 +1,20 @@
 defmodule Bubbles.Url.GeneratorStrategy do
-  @behaviour BubblesUrl.GeneratorStrategyBehaviour
+  @moduledoc """
+  Implementes the `Bubbles.Url.GeneratorStrategyBehaviour` behaviour with
+  default logic for generating unique URI strings among database records.
+  """
+  @behaviour Bubbles.Url.GeneratorStrategyBehaviour
 
-  @repo Application.get_env(:url, :repo)
-  @url Application.get_env(:url, :schema)
+  @doc """
+  Generates a unique URI string among database records based on provided URI
+  string.
 
+  The default logic appends a numeric suffix to the URI, making sure the
+  combination of URI and sufix is unique. For example, if `foo/bar-baz` is
+  provided as first parameter, and there already is `foo/bar-baz` and
+  `foo/bar-baz-1` in the database, the default logic will generate
+  `foo/bar-baz-2`.
+  """
   def generate_unique_uri(uri, repo, url_schema) do
     [uri, suffix] =
       case Regex.run(~r/(.+)\-(\d+)$/, uri, capture: :all_but_first) do
