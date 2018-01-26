@@ -1,6 +1,6 @@
 # Bubbles Url
 
-[![Build Status](https://travis-ci.org/elixir-bubbles/bubbles-url.svg?branch=master)](https://travis-ci.org/elixir-bubbles/bubbles_url) [![Hex Version](http://img.shields.io/hexpm/v/bubbles_url.svg?style=flat)](https://hex.pm/packages/bubbles_url) [![Hex docs](http://img.shields.io/badge/hex.pm-docs-green.svg?style=flat)](https://hexdocs.pm/bubbles_url) [![Ebert](https://ebertapp.io/github/elixir-bubbles/bubbles_url.svg)](https://ebertapp.io/github/elixir-bubbles/bubbles_url)
+[![Build Status](https://api.travis-ci.org/elixir-bubbles/bubbles_url.svg?branch=master)](https://travis-ci.org/elixir-bubbles/bubbles_url) [![Hex Version](http://img.shields.io/hexpm/v/bubbles_url.svg?style=flat)](https://hex.pm/packages/bubbles_url) [![Hex docs](http://img.shields.io/badge/hex.pm-docs-green.svg?style=flat)](https://hexdocs.pm/bubbles_url) [![Ebert](https://ebertapp.io/github/elixir-bubbles/bubbles_url.svg)](https://ebertapp.io/github/elixir-bubbles/bubbles_url)
 
 **TODO: Add description**
 
