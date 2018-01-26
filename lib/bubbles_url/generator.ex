@@ -1,6 +1,6 @@
 defmodule Bubbles.Url.Generator do
   @moduledoc """
-
+  Provides functions for generating URL records.
   """
 
   @doc """

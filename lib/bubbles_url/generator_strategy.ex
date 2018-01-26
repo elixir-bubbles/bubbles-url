@@ -27,7 +27,6 @@ defmodule Bubbles.Url.GeneratorStrategy do
 
   defp unique_uri(uri, suffix, repo, url_schema) do
     new_uri = "#{uri}-#{suffix}"
-    # TODO Find by LIKE uri, order by uri desc and take first?
     case repo.get_by(url_schema, uri: new_uri) do
       nil -> new_uri
       %url_schema{} -> unique_uri(uri, suffix + 1, repo, url_schema)
