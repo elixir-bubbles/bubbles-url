@@ -4,7 +4,7 @@ defmodule Bubbles.Url.Mixfile do
   def project do
     [
       app: :bubbles_url,
-      version: "0.1.0",
+      version: "0.1.1",
       description: "Elixir library for managing URLs as Ecto schema",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
