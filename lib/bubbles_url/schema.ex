@@ -58,8 +58,8 @@ defmodule Bubbles.Url.Schema do
       |> repo.get_by!(uri: uri)
       |> get_final_url(repo, url_schema_module)
 
-    repo.get_by!(schema_module, url_id: url.id)
-    |> Map.put(:url, url)
+    schema = repo.get_by!(schema_module, url_id: url.id)
+    Map.put(schema, :url, url)
   end
 
   defp get_final_url(url, repo, url_schema_module) do
@@ -93,8 +93,8 @@ defmodule Bubbles.Url.Schema do
       end)
   """
   def create_with_url(uri, repo, url_schema, schema_create_fn, strategy \\ @default_strategy) do
-    create_with_url_multi(uri, repo, url_schema, schema_create_fn, strategy)
-    |> repo.transaction()
+    multi = create_with_url_multi(uri, repo, url_schema, schema_create_fn, strategy)
+    repo.transaction(multi)
   end
 
   @doc """
@@ -144,8 +144,8 @@ defmodule Bubbles.Url.Schema do
         schema_update_fn,
         strategy \\ @default_strategy
       ) do
-    update_with_url_multi(schema, uri, repo, url_schema, schema_update_fn, strategy)
-    |> repo.transaction()
+    multi = update_with_url_multi(schema, uri, repo, url_schema, schema_update_fn, strategy)
+    repo.transaction(multi)
   end
 
   @doc """
@@ -185,8 +185,8 @@ defmodule Bubbles.Url.Schema do
       end)
   """
   def delete_with_url(schema, repo, url_schema, schema_delete_fn) do
-    delete_with_url_multi(schema, repo, url_schema, schema_delete_fn)
-    |> repo.transaction()
+    multi = delete_with_url_multi(schema, repo, url_schema, schema_delete_fn)
+    repo.transaction(multi)
   end
 
   @doc """
@@ -206,7 +206,6 @@ defmodule Bubbles.Url.Schema do
   end
 
   defp delete_urls_multi(multi, repo, url_schema, url) do
-    # TODO Refactor using Ecto query and a single multi delete query?
     redirected_to_by = repo.get_by(url_schema, redirects_to_url_id: url.id)
 
     multi =
@@ -218,7 +217,6 @@ defmodule Bubbles.Url.Schema do
           multi
       end
 
-    multi
-    |> Multi.delete(String.to_atom("delete_url_#{url.id}"), url)
+    Multi.delete(multi, String.to_atom("delete_url_#{url.id}"), url)
   end
 end

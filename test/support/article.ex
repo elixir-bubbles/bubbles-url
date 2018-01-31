@@ -1,4 +1,6 @@
 defmodule Bubbles.Url.Test.Article do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 

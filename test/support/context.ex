@@ -1,4 +1,6 @@
 defmodule Bubbles.Url.Test.Context do
+  @moduledoc false
+
   alias Bubbles.Url.Schema
   alias Bubbles.Url.Test.{Article, Url, Repo}
 
